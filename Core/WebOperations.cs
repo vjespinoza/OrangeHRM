@@ -38,34 +38,22 @@ public class WebOperations(IWebDriver driver)
         element.SendKeys(text);
     }
 
-    protected void TypeByCharacter(By locator, string text, int delay = 200)
+    protected string GetText(By locator)
     {
-        var element = FindElement(locator);
-        element.Clear();
-
-        foreach (var character in text)
-        {
-            element.SendKeys(character.ToString());
-            Thread.Sleep(delay);
-        }
+        return FindElement(locator).Text;
     }
 
-    protected SelectElement Dropdown(By locator)
+    protected void SelectByText(By selectWrapper, By options, string text)
     {
-        var dropdownSelector = FindElement(locator);
-        return new SelectElement(dropdownSelector);
-    }
-
-    protected void SelectByText(By divSelectWrapper, By options, string text)
-    {
-        var selectElement = FindElement(divSelectWrapper);
+        var selectElement = FindElement(selectWrapper);
         var selectOptions = selectElement.FindElements(options);
 
         selectOptions.ToList().Find(option => option.Text.Equals(text))?.Click();
     }
 
-    protected void SelectByIndex(By options, int index)
+    protected void SelectByIndex(By selectWrapper, By options, int index)
     {
-        FindElements(options)[index].Click();
+        var selectElement = FindElement(selectWrapper);
+        selectElement.FindElements(options)[index].Click();
     }
 }

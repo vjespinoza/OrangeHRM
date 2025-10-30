@@ -36,7 +36,7 @@ public class UserAdminPage(IWebDriver driver) : BasePage(driver)
     {
         Type(_employeeNameInput, employeeNameInitial);
         WaitForCondition(d => d.FindElements(GetAutocompleteDropdownOptions()).Count > 1);
-        SelectByIndex(GetAutocompleteDropdownOptions(), 1);
+        SelectByIndex(GetAutocompleteDropdownWrapper(), GetAutocompleteDropdownOptions(), 1);
     }
 
     public void SelectStatus(string status)

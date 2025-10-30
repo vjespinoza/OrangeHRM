@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using OrangeHRM.Pages.Components;
 using OrangeHRM.Utils;
 
 namespace OrangeHRM.Tests;
@@ -19,6 +21,12 @@ public class UserManagementTests : BaseTest
 
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible");
+
+        var usersList = mainPage.SystemUserCardComponents();
+        var user = usersList.Find(user => user.GetUserName().Equals(username));
+
+        Assert.True(user.IsVisible(),
+            "User exists in main page's System User list");
     }
 
     [Fact]
