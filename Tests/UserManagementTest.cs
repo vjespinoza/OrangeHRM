@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using OrangeHRM.Pages.Components;
 using OrangeHRM.Utils;
 
 namespace OrangeHRM.Tests;
@@ -41,7 +39,7 @@ public class UserManagementTests : BaseTest
 
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible after editing a user");
-        
+
         var newUsersList = mainPage.SystemUserCardComponents();
         var modifiedUser = newUsersList.Find(modifiedUser =>
             modifiedUser.GetUserName().Equals(userData.Username));

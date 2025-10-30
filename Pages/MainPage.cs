@@ -16,7 +16,7 @@ public class MainPage(IWebDriver driver) : BasePage(driver)
     {
         WaitForCondition(d => d.FindElements(_systemUserCardContainers).Count > 0);
         var containers = FindElements(_systemUserCardContainers);
-        
+
         return
             containers.Select(container => new SystemUserCard(Driver, container)).ToList();
     }

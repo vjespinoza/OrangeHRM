@@ -15,20 +15,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Xunit" />
+        <Using Include="Xunit"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-        <PackageReference Include="Selenium.Support" Version="4.38.0" />
-        <PackageReference Include="Selenium.WebDriver" Version="4.38.0" />
-        <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
-        <PackageReference Include="xunit.v3" Version="3.1.0" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
+        <PackageReference Include="Selenium.Support" Version="4.38.0"/>
+        <PackageReference Include="Selenium.WebDriver" Version="4.38.0"/>
+        <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2"/>
+        <PackageReference Include="xunit.v3" Version="3.1.0"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5"/>
     </ItemGroup>
 
 </Project>
