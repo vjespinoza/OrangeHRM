@@ -36,13 +36,12 @@ public class UserManagementTests : BaseTest
             "User was created successfully");
 
         var userAdminPage = user.Edit();
-
         var modifiedUserData = TestData.ModifiedUser;
         Workflows.EditUser(Driver, modifiedUserData, userAdminPage);
-        
+
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible after editing a user");
-        
+
         var newUsersList = mainPage.SystemUserCardComponents();
         var modifiedUser = newUsersList.Find(modifiedUser =>
             modifiedUser.GetUserName().Equals(modifiedUserData.Username));
@@ -54,6 +53,22 @@ public class UserManagementTests : BaseTest
     [Fact]
     public void DeleteUserTest()
     {
-        //TODO: Implement Delete User test
+        var userData = TestData.NewUser;
+        var mainPage = Workflows.CreateNewUser(Driver, userData);
+
+        Assert.True(mainPage.IsSuccessToastVisible(),
+            "Successful toast is visible after adding a new user");
+
+        var usersList = mainPage.SystemUserCardComponents();
+        var user = usersList.Find(user =>
+            user.GetUserName().Equals(userData.Username));
+        user.Delete();
+        var deleteUserModal = mainPage.PopUpModal(Driver);
+        deleteUserModal.Confirm();
+        var newUsersList = mainPage.SystemUserCardComponents();
+
+        Assert.Null(
+            newUsersList.Find(deletedUser => deletedUser.GetUserName().Equals(userData.Username))
+        );
     }
 }
