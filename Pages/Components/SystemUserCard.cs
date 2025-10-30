@@ -45,12 +45,12 @@ public class SystemUserCard(IWebDriver driver, IWebElement container) : BaseComp
         return GetText(_status);
     }
 
-    public void DeleteCard()
+    public void Delete()
     {
         Click(_deleteButton);
     }
 
-    public void EditCard()
+    public void Edit()
     {
         Click(_editButton);
     }
