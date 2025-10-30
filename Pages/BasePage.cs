@@ -6,20 +6,19 @@ namespace OrangeHRM.Pages;
 
 public abstract class BasePage(IWebDriver driver) : WebOperations(driver)
 {
+    private readonly By _autocompleteDropdownContainer = By.ClassName("oxd-autocomplete-dropdown");
+
+    private readonly By _autocompleteDropdownOptions = By.ClassName("oxd-autocomplete-option");
+
+    private readonly By _popUpModalContainer = By.ClassName("oxd-sheet");
+
     private readonly By _selectDropdownContainer =
         By.ClassName("oxd-select-dropdown");
 
     private readonly By _selectDropdownOptions =
         By.ClassName("oxd-select-option");
 
-    private readonly By _autocompleteDropdownContainer = By.ClassName("oxd-autocomplete-dropdown");
-
-    private readonly By _autocompleteDropdownOptions = By.ClassName("oxd-autocomplete-option");
-
     private readonly By _successToast = By.ClassName("oxd-toast--success");
-
-    private readonly By _popUpModalContainer = By.ClassName("oxd-sheet");
-
 
     protected By GetSelectDropdownWrapper()
     {

@@ -1,6 +1,6 @@
+using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System.Collections.ObjectModel;
 
 namespace OrangeHRM.Core;
 
@@ -24,6 +24,18 @@ public class WebOperations(IWebDriver driver)
     {
         var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
         return wait.Until(condition);
+    }
+
+    protected void WaitForVisibility(By locator, int timeoutSeconds = 10)
+    {
+        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutSeconds));
+        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
+    }
+
+    protected void WaitForInvisibility(By locator, int timeoutSeconds = 10)
+    {
+        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutSeconds));
+        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(locator));
     }
 
     protected void Click(By locator)

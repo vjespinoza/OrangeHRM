@@ -1,5 +1,4 @@
 using OpenQA.Selenium;
-using OrangeHRM.Core;
 using OrangeHRM.Pages.Components;
 
 namespace OrangeHRM.Pages;
@@ -10,12 +9,14 @@ public class MainPage(IWebDriver driver) : BasePage(driver)
     private readonly By _sidePanelMenuItems = By.CssSelector(".oxd-main-menu-item-wrapper a");
     private readonly By _sidePanelSearchInput = By.CssSelector(".oxd-navbar-nav .oxd-input");
     private readonly By _sidePanelToggleButton = By.ClassName("oxd-main-menu-button");
-    private readonly By _userProfileDropdown = By.ClassName("oxd-userdropdown");
     private readonly By _systemUserCardContainers = By.ClassName("oxd-table-card");
+    private readonly By _userProfileDropdown = By.ClassName("oxd-userdropdown");
 
     public List<SystemUserCard> SystemUserCardComponents()
     {
+        WaitForCondition(d => d.FindElements(_systemUserCardContainers).Count > 0);
         var containers = FindElements(_systemUserCardContainers);
+        
         return
             containers.Select(container => new SystemUserCard(Driver, container)).ToList();
     }

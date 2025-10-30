@@ -9,7 +9,7 @@ public class UserManagementTests : BaseTest
     [Fact]
     public void AddNewUserTest()
     {
-        var userData = TestData.NewUser;
+        var userData = new TestData().NewUser;
         var mainPage = Workflows.CreateNewUser(Driver, userData);
 
         Assert.True(mainPage.IsSuccessToastVisible(),
@@ -26,7 +26,7 @@ public class UserManagementTests : BaseTest
     [Fact]
     public void EditUserTest()
     {
-        var userData = TestData.NewUser;
+        var userData = new TestData().NewUser;
         var mainPage = Workflows.CreateNewUser(Driver, userData);
         var usersList = mainPage.SystemUserCardComponents();
         var user = usersList.Find(user =>
@@ -36,24 +36,24 @@ public class UserManagementTests : BaseTest
             "User was created successfully");
 
         var userAdminPage = user.Edit();
-        var modifiedUserData = TestData.ModifiedUser;
+        var modifiedUserData = new TestData().ModifiedUser;
         Workflows.EditUser(Driver, modifiedUserData, userAdminPage);
 
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible after editing a user");
-
+        
         var newUsersList = mainPage.SystemUserCardComponents();
         var modifiedUser = newUsersList.Find(modifiedUser =>
-            modifiedUser.GetUserName().Equals(modifiedUserData.Username));
+            modifiedUser.GetUserName().Equals(userData.Username));
 
-        Assert.True(modifiedUser.GetUserName() == modifiedUserData.Username,
+        Assert.True(modifiedUser.GetUserRole() == modifiedUserData.UserRole,
             "User was updated successfully");
     }
 
     [Fact]
     public void DeleteUserTest()
     {
-        var userData = TestData.NewUser;
+        var userData = new TestData().NewUser;
         var mainPage = Workflows.CreateNewUser(Driver, userData);
 
         Assert.True(mainPage.IsSuccessToastVisible(),

@@ -1,7 +1,5 @@
 using OpenQA.Selenium;
-using OrangeHRM.Utils;
 using OrangeHRM.Pages;
-using Xunit.Internal;
 
 namespace OrangeHRM.Utils;
 
@@ -9,9 +7,10 @@ public abstract class Workflows(IWebDriver driver) : BasePage(driver)
 {
     public static MainPage LoginAnGoToMainPage(IWebDriver driver)
     {
+        var loginData = new TestData().ValidLogin;
         var loginPage = new LoginPage(driver);
-        loginPage.EnterUsername(TestData.ValidLogin.Username);
-        loginPage.EnterPassword(TestData.ValidLogin.Password);
+        loginPage.EnterUsername(loginData.Username);
+        loginPage.EnterPassword(loginData.Password);
         loginPage.ClickLoginButton();
 
         return new MainPage(driver);

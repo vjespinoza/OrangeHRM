@@ -6,19 +6,19 @@ public class SystemUserCard(IWebDriver driver, IWebElement container) : BaseComp
 {
     private readonly By _checkBox = By.ClassName("oxd-table-card-cell-checkbox");
 
-    private readonly By _username = By.CssSelector(".oxd-table-cell:nth-child(2)");
-
-    private readonly By _userRole = By.CssSelector(".oxd-table-cell:nth-child(3)");
-
-    private readonly By _employeeName = By.CssSelector(".oxd-table-cell:nth-child(4)");
-
-    private readonly By _status = By.CssSelector(".oxd-table-cell:nth-child(5)");
-
     private readonly By _deleteButton =
         By.CssSelector(".oxd-table-cell:nth-child(6) button:first-of-type");
 
     private readonly By _editButton =
         By.CssSelector(".oxd-table-cell:nth-child(6) button:last-of-type");
+
+    private readonly By _employeeName = By.CssSelector(".oxd-table-cell:nth-child(4)");
+
+    private readonly By _status = By.CssSelector(".oxd-table-cell:nth-child(5)");
+
+    private readonly By _username = By.CssSelector(".oxd-table-cell:nth-child(2)");
+
+    private readonly By _userRole = By.CssSelector(".oxd-table-cell:nth-child(3)");
 
     public void SelectCard()
     {

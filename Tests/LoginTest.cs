@@ -1,4 +1,3 @@
-using OrangeHRM.Pages;
 using OrangeHRM.Utils;
 
 namespace OrangeHRM.Tests;
