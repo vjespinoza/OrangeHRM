@@ -17,19 +17,31 @@ public abstract class Workflows(IWebDriver driver) : BasePage(driver)
         return new MainPage(driver);
     }
 
-    public static MainPage CreateNewUser(IWebDriver driver)
+    public static MainPage CreateNewUser(IWebDriver driver, Records.UserData userData)
     {
-        var mainPage = new MainPage(driver);
+        var mainPage = LoginAnGoToMainPage(driver);
+        mainPage.SelectSidePanelMenuItem();
+
         var userAdminPage = mainPage.AddUser();
 
-        userAdminPage.SelectUserRole(TestData.AdminUser.UserRole);
-        userAdminPage.EnterEmployeeName(TestData.AdminUser.EmployeeNameInitial);
-        userAdminPage.SelectStatus(TestData.AdminUser.Status);
-        userAdminPage.EnterUsername(TestData.AdminUser.Username);
-        userAdminPage.EnterPassword(TestData.AdminUser.Password);
-        userAdminPage.EnterPasswordConfirmation(TestData.AdminUser.Password);
-        userAdminPage.SaveNewUser();
+        userAdminPage.SelectUserRole(userData.UserRole);
+        userAdminPage.EnterEmployeeName(userData.EmployeeNameInitial);
+        userAdminPage.SelectStatus(userData.Status);
+        userAdminPage.EnterUsername(userData.Username);
+        userAdminPage.EnterPassword(userData.Password);
+        userAdminPage.EnterPasswordConfirmation(userData.Password);
+        userAdminPage.Save();
 
         return mainPage;
+    }
+
+    public static void EditUser(IWebDriver driver, Records.UserData userData, UserAdminPage userAdminPage)
+    {
+        userAdminPage.SelectUserRole(userData.UserRole);
+        userAdminPage.SelectStatus(userData.Status);
+        userAdminPage.EnablePasswordChange();
+        userAdminPage.EnterPassword(userData.Password);
+        userAdminPage.EnterPasswordConfirmation(userData.Password);
+        userAdminPage.Save();
     }
 }

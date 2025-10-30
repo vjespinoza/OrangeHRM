@@ -31,6 +31,13 @@ public class WebOperations(IWebDriver driver)
         FindElement(locator).Click();
     }
 
+    protected void ClickJs(By locator)
+    {
+        var element = FindElement(locator);
+        var jsExecutor = (IJavaScriptExecutor)Driver;
+        jsExecutor.ExecuteScript("arguments[0].click();", element);
+    }
+
     protected void Type(By locator, string text)
     {
         var element = FindElement(locator);

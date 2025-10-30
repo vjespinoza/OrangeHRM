@@ -9,16 +9,15 @@ public class UserManagementTests : BaseTest
     [Fact]
     public void AddNewUserTest()
     {
-        var mainPage = Workflows.LoginAnGoToMainPage(Driver);
-        mainPage.SelectSidePanelMenuItem();
-        Workflows.CreateNewUser(Driver);
+        var userData = TestData.NewUser;
+        var mainPage = Workflows.CreateNewUser(Driver, userData);
 
         Assert.True(mainPage.IsSuccessToastVisible(),
-            "Successful toast is visible");
+            "Successful toast is visible after adding a new user");
 
         var usersList = mainPage.SystemUserCardComponents();
         var user = usersList.Find(user =>
-            user.GetUserName().Equals(TestData.AdminUser.Username));
+            user.GetUserName().Equals(userData.Username));
 
         Assert.True(user.IsVisible(),
             "User exists in main page's System User list");
@@ -27,14 +26,29 @@ public class UserManagementTests : BaseTest
     [Fact]
     public void EditUserTest()
     {
-        var mainPage = Workflows.LoginAnGoToMainPage(Driver);
-        mainPage.SelectSidePanelMenuItem();
+        var userData = TestData.NewUser;
+        var mainPage = Workflows.CreateNewUser(Driver, userData);
         var usersList = mainPage.SystemUserCardComponents();
         var user = usersList.Find(user =>
-            user.GetUserName().Equals(TestData.AdminUser.Username));
-        user.Edit();
+            user.GetUserName().Equals(userData.Username));
 
-        Thread.Sleep(10000);
+        Assert.True(user.GetUserName() == userData.Username,
+            "User was created successfully");
+
+        var userAdminPage = user.Edit();
+
+        var modifiedUserData = TestData.ModifiedUser;
+        Workflows.EditUser(Driver, modifiedUserData, userAdminPage);
+        
+        Assert.True(mainPage.IsSuccessToastVisible(),
+            "Successful toast is visible after editing a user");
+        
+        var newUsersList = mainPage.SystemUserCardComponents();
+        var modifiedUser = newUsersList.Find(modifiedUser =>
+            modifiedUser.GetUserName().Equals(modifiedUserData.Username));
+
+        Assert.True(modifiedUser.GetUserName() == modifiedUserData.Username,
+            "User was updated successfully");
     }
 
     [Fact]

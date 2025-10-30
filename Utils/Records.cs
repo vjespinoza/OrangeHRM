@@ -1,6 +1,6 @@
 namespace OrangeHRM.Utils;
 
-public abstract class Records
+public class Records
 {
     public record UserData(
         string UserRole,

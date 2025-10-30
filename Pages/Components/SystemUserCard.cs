@@ -50,8 +50,10 @@ public class SystemUserCard(IWebDriver driver, IWebElement container) : BaseComp
         Click(_deleteButton);
     }
 
-    public void Edit()
+    public UserAdminPage Edit()
     {
         Click(_editButton);
+
+        return new UserAdminPage(Driver);
     }
 }
