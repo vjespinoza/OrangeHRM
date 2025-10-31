@@ -6,6 +6,12 @@ namespace OrangeHRM.Core;
 
 public static class DriverManager
 {
+    public enum BrowserType
+    {
+        Chrome,
+        Firefox
+    }
+
     private static readonly ThreadLocal<IWebDriver> ThreadLocalDriver = new();
 
     public static IWebDriver Driver
@@ -17,6 +23,15 @@ public static class DriverManager
             return ThreadLocalDriver.Value;
         }
         private set => ThreadLocalDriver.Value = value;
+    }
+
+    public static IEnumerable<object[]> BrowserData
+    {
+        get
+        {
+            yield return [BrowserType.Chrome];
+            yield return [BrowserType.Firefox];
+        }
     }
 
     public static void InitializeDriver(BrowserType browserType)
@@ -56,20 +71,5 @@ public static class DriverManager
         var options = new FirefoxOptions();
         options.AddArgument("--start-maximized");
         return new FirefoxDriver(options);
-    }
-
-    public enum BrowserType
-    {
-        Chrome,
-        Firefox
-    }
-
-    public static IEnumerable<object[]> BrowserData
-    {
-        get
-        {
-            yield return [BrowserType.Chrome];
-            yield return [BrowserType.Firefox];
-        }
     }
 }

@@ -1,7 +1,7 @@
 using OrangeHRM.Core;
 using OrangeHRM.Utils;
 
-namespace OrangeHRM.Tests;
+namespace OrangeHRM.Tests.FrontEndTests;
 
 public class UserManagementTests : BaseTest
 {

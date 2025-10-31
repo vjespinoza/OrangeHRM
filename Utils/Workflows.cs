@@ -1,5 +1,3 @@
-using OpenQA.Selenium;
-using OrangeHRM.Core;
 using OrangeHRM.Pages;
 
 namespace OrangeHRM.Utils;
