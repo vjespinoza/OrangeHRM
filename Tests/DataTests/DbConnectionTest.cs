@@ -1,5 +1,3 @@
-using System.Data;
-
 namespace OrangeHRM.Tests.DataTests;
 
 public class DbConnectionTest : BaseDataTest

@@ -20,6 +20,7 @@ public class UserManagementDataTest : BaseDataTest
         var result = DbHelper.ExecuteQuery(query);
 
         Assert.True(result.Rows.Count > 0, $"User '{username}' not found.");
+
         var actualRole = result.Rows[0]["user_role"].ToString();
 
         Assert.Equal(expectedRole, actualRole);
