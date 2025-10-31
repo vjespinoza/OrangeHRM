@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace OrangeHRM.Pages.Components;
 
-public class PopUpModal(IWebDriver driver, IWebElement container) : BaseComponent(driver, container)
+public class PopUpModal(IWebElement container) : BaseComponent(container)
 {
     private readonly By _cancelButton =
         By.CssSelector(".orangehrm-modal-footer button:first-of-type");

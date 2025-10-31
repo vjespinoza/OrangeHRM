@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace OrangeHRM.Pages;
 
-public class LoginPage(IWebDriver driver) : BasePage(driver)
+public class LoginPage : BasePage
 {
     private readonly By _loginButton = By.ClassName("orangehrm-login-button");
     private readonly By _passwordInput = By.CssSelector("input[name='password']");

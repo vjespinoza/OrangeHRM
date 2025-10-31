@@ -3,7 +3,7 @@ using OrangeHRM.Pages.Components;
 
 namespace OrangeHRM.Pages;
 
-public class MainPage(IWebDriver driver) : BasePage(driver)
+public class MainPage : BasePage
 {
     private readonly By _addUserButton = By.CssSelector(".orangehrm-header-container button");
     private readonly By _sidePanelMenuItems = By.CssSelector(".oxd-main-menu-item-wrapper a");
@@ -18,7 +18,7 @@ public class MainPage(IWebDriver driver) : BasePage(driver)
         var containers = FindElements(_systemUserCardContainers);
 
         return
-            containers.Select(container => new SystemUserCard(Driver, container)).ToList();
+            containers.Select(container => new SystemUserCard(container)).ToList();
     }
 
     public void SelectSidePanelMenuItem(string itemName = "Admin")
@@ -30,12 +30,12 @@ public class MainPage(IWebDriver driver) : BasePage(driver)
     {
         Click(_addUserButton);
 
-        return new UserAdminPage(Driver);
+        return new UserAdminPage();
     }
 
     public bool IsSidePanelVisible()
     {
-        return Driver.FindElement(_sidePanelSearchInput).Displayed &&
-               Driver.FindElement(_sidePanelToggleButton).Displayed;
+        return WaitForVisibility(_sidePanelSearchInput) &&
+               WaitForVisibility(_sidePanelToggleButton);
     }
 }

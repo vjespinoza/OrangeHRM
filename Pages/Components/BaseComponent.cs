@@ -3,11 +3,11 @@ using OrangeHRM.Core;
 
 namespace OrangeHRM.Pages.Components;
 
-public class BaseComponent(IWebDriver driver, IWebElement container) : WebOperations(driver)
+public class BaseComponent(IWebElement container) : WebOperations
 {
     private readonly IWebElement _container = container;
 
-    public IWebElement GetContainer()
+    protected IWebElement GetContainer()
     {
         return _container;
     }

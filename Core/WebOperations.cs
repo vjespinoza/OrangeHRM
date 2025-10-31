@@ -5,38 +5,38 @@ using SeleniumExtras.WaitHelpers;
 
 namespace OrangeHRM.Core;
 
-public class WebOperations(IWebDriver driver)
+public class WebOperations
 {
-    protected IWebDriver Driver { get; } = driver;
+    protected IWebDriver Driver => DriverManager.Driver;
+
+    private WebDriverWait Wait => new(Driver, TimeSpan.FromSeconds(15));
 
     protected IWebElement FindElement(By locator)
     {
-        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
-        return wait.Until(d => d.FindElement(locator));
+        return Wait.Until(d => d.FindElement(locator));
     }
 
     protected ReadOnlyCollection<IWebElement> FindElements(By locator)
     {
-        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
-        return wait.Until(d => d.FindElements(locator));
+        return Wait.Until(d => d.FindElements(locator));
     }
 
     protected bool WaitForCondition(Func<IWebDriver, bool> condition)
     {
-        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
-        return wait.Until(condition);
+        return Wait.Until(condition);
     }
 
-    protected void WaitForVisibility(By locator, int timeoutSeconds = 10)
+    protected bool WaitForVisibility(By locator)
     {
-        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutSeconds));
-        wait.Until(ExpectedConditions.ElementIsVisible(locator));
-    }
-
-    protected void WaitForInvisibility(By locator, int timeoutSeconds = 10)
-    {
-        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutSeconds));
-        wait.Until(ExpectedConditions.InvisibilityOfElementLocated(locator));
+        try
+        {
+            Wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            return true;
+        }
+        catch (WebDriverTimeoutException)
+        {
+            return false;
+        }
     }
 
     protected void Click(By locator)

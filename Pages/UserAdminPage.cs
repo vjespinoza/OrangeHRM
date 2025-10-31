@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace OrangeHRM.Pages;
 
-public class UserAdminPage(IWebDriver driver) : BasePage(driver)
+public class UserAdminPage : BasePage
 {
     private readonly By _changePasswordCheckbox =
         By.CssSelector(".oxd-form-row:not(.user-password-row) .oxd-grid-item:nth-of-type(5) input");

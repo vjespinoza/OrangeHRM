@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace OrangeHRM.Pages.Components;
 
-public class SystemUserCard(IWebDriver driver, IWebElement container) : BaseComponent(driver, container)
+public class SystemUserCard(IWebElement container) : BaseComponent(container)
 {
     private readonly By _checkBox = By.ClassName("oxd-table-card-cell-checkbox");
 
@@ -54,6 +54,6 @@ public class SystemUserCard(IWebDriver driver, IWebElement container) : BaseComp
     {
         Click(_editButton);
 
-        return new UserAdminPage(Driver);
+        return new UserAdminPage();
     }
 }

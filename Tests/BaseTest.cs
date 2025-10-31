@@ -1,20 +1,22 @@
 using OpenQA.Selenium;
 using OrangeHRM.Core;
+using OrangeHRM.Pages;
 
 namespace OrangeHRM.Tests;
 
 public abstract class BaseTest : IDisposable
 {
-    public BaseTest()
-    {
-        Driver = WebDriverFactory.CreateWebDriver();
-        Driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-    }
+    private const string Url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+    protected readonly LoginPage LoginPage = new();
 
-    protected IWebDriver Driver { get; }
+    protected void InitializeBrowser(DriverManager.BrowserType browserType)
+    {
+        DriverManager.InitializeDriver(browserType);
+        LoginPage.NavigateTo(Url);
+    }
 
     public void Dispose()
     {
-        if (Driver != null) Driver.Quit();
+        DriverManager.QuitDriver();
     }
 }

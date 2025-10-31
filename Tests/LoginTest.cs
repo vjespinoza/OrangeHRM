@@ -1,13 +1,16 @@
+using OrangeHRM.Core;
 using OrangeHRM.Utils;
 
 namespace OrangeHRM.Tests;
 
 public class LoginTests : BaseTest
 {
-    [Fact]
-    public void VerifyValidUserLogin()
+    [Theory]
+    [MemberData(nameof(DriverManager.BrowserData), MemberType = typeof(DriverManager))]
+    public void VerifyValidUserLogin(DriverManager.BrowserType browser)
     {
-        var mainPage = Workflows.LoginAnGoToMainPage(Driver);
+        InitializeBrowser(browser);
+        var mainPage = Workflows.LoginAnGoToMainPage();
 
         Assert.True(mainPage.IsSidePanelVisible(),
             "User is redirected to the main HRM page after successful login");

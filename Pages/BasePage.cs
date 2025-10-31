@@ -4,7 +4,7 @@ using OrangeHRM.Pages.Components;
 
 namespace OrangeHRM.Pages;
 
-public abstract class BasePage(IWebDriver driver) : WebOperations(driver)
+public abstract class BasePage : WebOperations
 {
     private readonly By _autocompleteDropdownContainer = By.ClassName("oxd-autocomplete-dropdown");
 
@@ -19,6 +19,11 @@ public abstract class BasePage(IWebDriver driver) : WebOperations(driver)
         By.ClassName("oxd-select-option");
 
     private readonly By _successToast = By.ClassName("oxd-toast--success");
+
+    public void NavigateTo(string url)
+    {
+        Driver.Navigate().GoToUrl(url);
+    }
 
     protected By GetSelectDropdownWrapper()
     {
@@ -42,11 +47,11 @@ public abstract class BasePage(IWebDriver driver) : WebOperations(driver)
 
     public bool IsSuccessToastVisible()
     {
-        return WaitForCondition(d => d.FindElement(_successToast).Displayed);
+        return WaitForVisibility(_successToast);
     }
 
-    public PopUpModal PopUpModal(IWebDriver driver)
+    public PopUpModal PopUpModal()
     {
-        return new PopUpModal(driver, FindElement(_popUpModalContainer));
+        return new PopUpModal(FindElement(_popUpModalContainer));
     }
 }

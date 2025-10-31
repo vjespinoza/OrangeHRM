@@ -1,14 +1,18 @@
+using OrangeHRM.Core;
 using OrangeHRM.Utils;
 
 namespace OrangeHRM.Tests;
 
 public class UserManagementTests : BaseTest
 {
-    [Fact]
-    public void AddNewUserTest()
+    [Theory]
+    [MemberData(nameof(DriverManager.BrowserData), MemberType = typeof(DriverManager))]
+    public void AddNewUserTest(DriverManager.BrowserType browser)
     {
+        InitializeBrowser(browser);
+
         var userData = new TestData().NewUser;
-        var mainPage = Workflows.CreateNewUser(Driver, userData);
+        var mainPage = Workflows.CreateNewUser(userData);
 
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible after adding a new user");
@@ -21,11 +25,14 @@ public class UserManagementTests : BaseTest
             "User exists in main page's System User list");
     }
 
-    [Fact]
-    public void EditUserTest()
+    [Theory]
+    [MemberData(nameof(DriverManager.BrowserData), MemberType = typeof(DriverManager))]
+    public void EditUserTest(DriverManager.BrowserType browser)
     {
+        InitializeBrowser(browser);
+
         var userData = new TestData().NewUser;
-        var mainPage = Workflows.CreateNewUser(Driver, userData);
+        var mainPage = Workflows.CreateNewUser(userData);
         var usersList = mainPage.SystemUserCardComponents();
         var user = usersList.Find(user =>
             user.GetUserName().Equals(userData.Username));
@@ -35,7 +42,7 @@ public class UserManagementTests : BaseTest
 
         var userAdminPage = user.Edit();
         var modifiedUserData = new TestData().ModifiedUser;
-        Workflows.EditUser(Driver, modifiedUserData, userAdminPage);
+        Workflows.EditUser(modifiedUserData, userAdminPage);
 
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible after editing a user");
@@ -48,11 +55,14 @@ public class UserManagementTests : BaseTest
             "User was updated successfully");
     }
 
-    [Fact]
-    public void DeleteUserTest()
+    [Theory]
+    [MemberData(nameof(DriverManager.BrowserData), MemberType = typeof(DriverManager))]
+    public void DeleteUserTest(DriverManager.BrowserType browser)
     {
+        InitializeBrowser(browser);
+
         var userData = new TestData().NewUser;
-        var mainPage = Workflows.CreateNewUser(Driver, userData);
+        var mainPage = Workflows.CreateNewUser(userData);
 
         Assert.True(mainPage.IsSuccessToastVisible(),
             "Successful toast is visible after adding a new user");
@@ -61,7 +71,7 @@ public class UserManagementTests : BaseTest
         var user = usersList.Find(user =>
             user.GetUserName().Equals(userData.Username));
         user.Delete();
-        var deleteUserModal = mainPage.PopUpModal(Driver);
+        var deleteUserModal = mainPage.PopUpModal();
         deleteUserModal.Confirm();
         var newUsersList = mainPage.SystemUserCardComponents();
 
